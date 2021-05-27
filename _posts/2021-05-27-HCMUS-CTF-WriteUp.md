@@ -195,7 +195,7 @@ HCMUS-CTF{peppa-9876543-BAAAM-A1z9-3133337}
 
 ### Mixed-VM
 
-Open file in IDA. Main function look like
+Open file in IDA. Main function looks like
 
 ```cpp
 __int64 __fastcall main(int a1, char **a2, char **a3)
@@ -391,7 +391,7 @@ unsigned __int64 __fastcall sub_839(dd *a1)
 }
 ```
 
-Then use the debugger to know what does this function do? This function is a virtual machine and the opcode has a size 4bytes, opcode has address 0x202020 in IDA. The function reads 4 characters then encrypts. Compare with value load in data. The correct way has two values equal. We can decompile with the correct way.
+Then use the debugger to know what does this function do? This function is a virtual machine and the opcode has a size 4bytes, opcode has address 0x202020 in IDA. The function reads 4 characters then encrypts. Compare it with value load in data. The correct way has two values equal. We can decompile with the correct way.
 
 We can decompile based on how the program runs correctly. Can you code decompiler? 
 
