@@ -7,7 +7,7 @@ title: HCMUS-CTF-Write-up-Reversing
 
 We open file in jadx to decompile this file. 
 
-![TreeFolder](https://github.com/naminhcs/naminhcs.github.io/blob/master/assets/img/Capture.PNG)
+![TreeFolder](/assets/img/Capture.PNG)
 
 Open MainActivity we get this code.
 
