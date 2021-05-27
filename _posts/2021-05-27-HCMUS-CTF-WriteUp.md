@@ -197,7 +197,7 @@ HCMUS-CTF{peppa-9876543-BAAAM-A1z9-3133337}
 
 Open file in IDA. Main function look like
 
-```C++
+```cpp
 __int64 __fastcall main(int a1, char **a2, char **a3)
 {
   void *ptr; // [rsp+18h] [rbp-8h]
@@ -213,7 +213,7 @@ __int64 __fastcall main(int a1, char **a2, char **a3)
 
 ptr is a pointer has 32bytes. Go to sub_7E6(ptr).
 
-```gcc
+```cpp
 __int64 __fastcall sub_7E6(__int64 a1)
 {
   __int64 result; // rax
@@ -229,7 +229,7 @@ __int64 __fastcall sub_7E6(__int64 a1)
 ```
 This is the constructor for a struct. We define new struct for ptr. Struct has size 32bytes.
 
-```gcc
+```cpp
 struct dd
 {
     int inputData;
@@ -242,7 +242,7 @@ struct dd
 ```
 Type of ptr is dd*. Now we change type of data in IDA. We have a new code in sub_839(ptr)
 
-```gcc
+```cpp
 unsigned __int64 __fastcall sub_839(dd *a1)
 {
   int *v1; // rax
