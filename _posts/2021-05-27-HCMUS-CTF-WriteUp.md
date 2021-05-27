@@ -5,7 +5,9 @@ title: HCMUS-CTF-Write-up-Reversing
 
 ### AndroidRev
 
-We open file in jadx to decompile this file.
+We open file in jadx to decompile this file. 
+
+![TreeFolder](https://github.com/naminhcs/naminhcs.github.io/blob/master/_posts/Capture.PNG)
 
 Open MainActivity we get this code.
 
@@ -66,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 ~~~
-Easy to know, this program check our flag in Flagchecker. Open file FlagChecker.
+Easy to know, this program checks our flag in FlagChecker. Open file FlagChecker.
 
 ~~~
 package com.hcmusctf.androidrev;
@@ -173,13 +175,13 @@ public class FlagChecker {
 }
 ~~~
 
-The flag is: **HCMUS-CTF{something here}** and length of flag is 42. Length of string "something here" is 32. 
+The flag is: **HCMUS-CTF{something here}** and length of the flag is 42. Length(something here) = 32.
 
 Character at 15, 23, 29, 34 are '-'. Now flag has format **HCMUS-CTF{s[1]-s[2]-s[3]-s[4]-s[5]}**. Length(s[1]) = 5. Length(s[2]) = 7. Length(s[3]) = 5. Length(s[4]) = 4. Length(s[1]) = 7.
 
 s[1] contains only character (a-z), s[3] contains character (A-Z), s[5] contains character (0, 9).
 
-Then check this code
+Then checks this code
 
 ~~~
 	!me(ctx, dh(gs(ctx.getString(R.string.ct1), ctx.getString(R.string.k1)), ps[0]), ctx.getString(R.string.t1))
