@@ -187,8 +187,7 @@ Then check this code
 In Android, each string is represented by a number. We can find _resources.arsc/res/values/string_. This code get string in R.string.ct1 and R.string.k1 and encrypted by gs(). A string returned by gs is "MD5". I think string encrypted by MD5 algorithm. We can decrypt online.
 
 Do the same, we can get flag is
-
 ```
-HCMUS-CTF{peppa-9876543-BAAAM-A1z9-3133337}.
+HCMUS-CTF{peppa-9876543-BAAAM-A1z9-3133337}
 ```
 
