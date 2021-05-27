@@ -396,8 +396,8 @@ Then use the debugger to know what does this function do? This function is a vir
 We can decompile based on how the program runs correctly. Can you code decompiler? 
 
 FLAG
----
+```
 HCMUS-CTF{i_like_using_vm_to_protect_my_program}
----
+```
 
 
