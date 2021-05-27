@@ -188,6 +188,7 @@ In Android, each string is represented by a number. We can find _resources.arsc/
 
 Do the same, we can get flag is
 
-{: .box-note}
-**Note:** HCMUS-CTF{peppa-9876543-BAAAM-A1z9-3133337}
+---
+HCMUS-CTF{peppa-9876543-BAAAM-A1z9-3133337}.
+---
 
