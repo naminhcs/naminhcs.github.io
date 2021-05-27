@@ -173,7 +173,10 @@ public class FlagChecker {
 }
 ~~~
 
-The flag is: **HCMUS-CTF{something here}** and length of flag is 42. Length of string "something here" is 32. Character at 15, 23, 29, 34 are '-'. Now flag has format **HCMUS-CTF{s[1]-s[2]-s[3]-s[4]-s[5]}**. Length(s[1]) = 5. Length(s[2]) = 7. Length(s[3]) = 5. Length(s[4]) = 4. Length(s[1]) = 7.
+The flag is: **HCMUS-CTF{something here}** and length of flag is 42. Length of string "something here" is 32. 
+
+Character at 15, 23, 29, 34 are '-'. Now flag has format **HCMUS-CTF{s[1]-s[2]-s[3]-s[4]-s[5]}**. Length(s[1]) = 5. Length(s[2]) = 7. Length(s[3]) = 5. Length(s[4]) = 4. Length(s[1]) = 7.
+
 s[1] contains only character (a-z), s[3] contains character (A-Z), s[5] contains character (0, 9).
 
 Then check this code
@@ -181,13 +184,10 @@ Then check this code
 ~~~
 	!me(ctx, dh(gs(ctx.getString(R.string.ct1), ctx.getString(R.string.k1)), ps[0]), ctx.getString(R.string.t1))
 ~~~
-In Android, each string is represented by a number. We can find _resources.arsc/res/values/string_. This code get string in R.string.ct1 and R.string.k1 and encrypt by gs(). A string returned by gs are "MD5". I think string encrypted by MD5 algorithm. We can decrypt online.
+In Android, each string is represented by a number. We can find _resources.arsc/res/values/string_. This code get string in R.string.ct1 and R.string.k1 and encrypted by gs(). A string returned by gs is "MD5". I think string encrypted by MD5 algorithm. We can decrypt online.
 
 Do the same, we can get flag is
 
----
-
----
-
-
+{: .box-note}
+**Note:** HCMUS-CTF{peppa-9876543-BAAAM-A1z9-3133337}
 
