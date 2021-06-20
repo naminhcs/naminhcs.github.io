@@ -168,6 +168,90 @@ FLAG
 ```
 flag{th1s_1s_why_c0mpu73rs_d0n7_h4v3_f33l1ng5}
 ```
+### arm1
+Ta mở file bằng IDA, sau đó vào decompile hàm main như sau: 
+
+```c
+int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  const char *v3; // r4
+  int v4; // r0
+
+  v3 = argv[1];
+  v4 = strlen(v3);
+  generateHash((int)v3, v4);
+  return 0;
+}
+```
+
+Đi vào hàm generateHash ta có như sau:
+```c
+int __fastcall generateHash(int a1, int stringLen)
+{
+  int v2; // r0
+  int v3; // r0
+  int i; // [sp+8h] [bp+8h]
+  int j; // [sp+8h] [bp+8h]
+  int v9; // [sp+10h] [bp+10h]
+  int v10; // [sp+14h] [bp+14h]
+
+  v9 = malloc(stringLen);
+  v2 = time(0);
+  v3 = srandom(v2);
+  v10 = rand(v3) % stringLen;
+  for ( i = 0; i < stringLen; ++i )
+    *(_BYTE *)(v9 + i) = (7 * i + v10) % 126u;
+  for ( j = 0; j < stringLen; ++j )
+    putchar(*(_BYTE *)(j + v9) ^ *(_BYTE *)(j + a1));
+  return puts(&unk_4D8FC);
+}
+```
+
+Dễ dàng thấy ta có thể sử dụng bruceforce v10 để tìm key khi encrypted flag huL{SEp^H6?!. Code tìm key như sau:
+
+```cpp
+#include <iostream>
+using namespace std;
+int v9[100];
+string a1;
+int main(){
+    a1 = "huL{SEp^H6?!";
+    for (int v10 = 0; v10 < 12; v10++){
+        for (int i = 0; i < a1.length(); i++){
+            v9[i] = (7 * i + v10) % 126;
+        } 
+        for (int i = 0; i < a1.length(); i++){
+            int ans = 0;
+            ans = v9[i] ^ a1[i];
+            cout << char(ans);
+        }
+        cout << endl;
+    }
+}
+```
+
+Kết quả nhận được:
+```
+hrBnOfZop       yl
+i}CmNa[lqvxo
+j|\lM`\mrwwn
+k⌂]cLc]jstvq
+l~^bsb^ktuup
+my_arm_hurts
+nxX`ql@ivssr
+o{YgpoAfwpru
+`zZfwnBqqt
+ae[eviCd        ~pw
+bdTduhDe
+⌂ov
+cgU[tkEb♂|ny
+```
+Thấy key = my_arm_hurts là có nghĩa nhất. Chính vì vậy flag là:
+
+FLAG
+```
+flag{my_arm_hurts}
+```
 
 ### WTF
 
