@@ -162,7 +162,7 @@ class MoodyNumbers
 }
 ~~~
 Đọc đoạn code checkNumber trên, ta có thể tính toán được các số như trong ảnh dưới đây:
-![resMoody](/assets/img/MoodyNumber.PNG)
+![resMoody](../assets/img/MoodyNumber.PNG)
 Ta thấy thông báo là header file bị corrup
 FLAG
 ```
@@ -172,17 +172,18 @@ flag{th1s_1s_why_c0mpu73rs_d0n7_h4v3_f33l1ng5}
 ### WTF
 
 Đầu tiên ta sẽ kiểm tra file trên ubuntu.
-![what-file](/assets/img/MoodyNumber.PNG)
+![what-file](../assets/img/what-file.png)
 
 Ta thấy header file đang bị corrupt. Mở header file lên kiểm tra:
-![what-elf](/assets/img/MoodyNumber.PNG)
+![what-elf](../assets/img/what-elf.png)
 
 Thấy rằng các thông số đã bị thay đổi. Tìm hiểu về định dạng [file header](https://en.wikipedia.org/wiki/Executable_and_Linkable_Format)
-![changHeader](/assets/img/MoodyNumber.PNG)
+Nhận xét về định dạng thì có thể thấy được header đã bị chuyển từ file 64bit về 32bit. Sửa header về 32bit. (Sửa bit thứ 4 từ 01 thành 02)
+![changHeader](../assets/img/changHeader.png)
 
-Nhận xét về định dạng thì có thể thấy được header đã bị chuyển từ file 64bit về 32bit. Sửa header về 32bit. Sau đó ta mở file bằng IDA.
+Sau đó ta mở file bằng IDA.
 Sau khi mở IDA, ta thấy có hàm printFlag. Decompile hàm này ta dễ dàng thể tìm ra flag.
-![resWTF](/assets/img/MoodyNumber.PNG)
+![resWTF](../assets/img/T6_18120137.png)
 FLAG
 ```
 flag{headers_are_fun}
