@@ -3,6 +3,445 @@ layout: post
 title: ctf.hackucf-Write-up-Reversing
 ---
 
+### Conditional1
+
+Ta mở file bằng IDA, ta sẽ thu được code như sau:
+
+```c
+int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  int result; // eax
+
+  if ( argc == 2 )
+  {
+    if ( !strcmp(argv[1], "super_secret_password") )
+    {
+      puts("Access granted.");
+      giveFlag();
+      result = 0;
+    }
+    else
+    {
+      puts("Access denied.");
+      result = 1;
+    }
+  }
+  else
+  {
+    printf("Usage: %s password\n", *argv);
+    result = 1;
+  }
+  return result;
+}
+```
+Hàm sẽ nhận vào 1 string và so sánh với string **super_secret_password**. Nếu đúng thì sẽ in ra flag. Chạy chương trình và truyền vào string trên ta thu được flag như sau
+FLAG
+```
+flag{if_i_submit_this_flag_then_i_will_get_points}
+```
+
+### loop1
+Ta decompile file loop1 bằng IDA. Ta sẽ có đoạn code sau:
+
+```c
+int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  __int64 v4[12]; // [rsp+0h] [rbp-70h] BYREF
+  int v5; // [rsp+60h] [rbp-10h]
+  unsigned int v6; // [rsp+64h] [rbp-Ch] BYREF
+  unsigned int v7; // [rsp+68h] [rbp-8h] BYREF
+  unsigned int v8; // [rsp+6Ch] [rbp-4h] BYREF
+
+  while ( 1 )
+  {
+    while ( 1 )
+    {
+      puts("Menu:\n\n[1] Say hello\n[2] Add numbers\n[3] Quit");
+      printf("\n[>] ");
+      if ( (unsigned int)__isoc99_scanf("%u", &v8) != 1 )
+      {
+        puts("Unknown input!");
+        return 1;
+      }
+      if ( v8 != 1 )
+        break;
+      printf("What is your name? ");
+      v4[0] = 0LL;
+      v4[1] = 0LL;
+      v4[2] = 0LL;
+      v4[3] = 0LL;
+      v4[4] = 0LL;
+      v4[5] = 0LL;
+      v4[6] = 0LL;
+      v4[7] = 0LL;
+      v4[8] = 0LL;
+      v4[9] = 0LL;
+      v4[10] = 0LL;
+      v4[11] = 0LL;
+      v5 = 0;
+      if ( (unsigned int)__isoc99_scanf("%99s", v4) != 1 )
+      {
+        puts("Unable to read name!");
+        return 1;
+      }
+      printf("Hello, %s!\n", (const char *)v4);
+    }
+    if ( v8 != 2 )
+      break;
+    printf("Enter first number: ");
+    if ( (unsigned int)__isoc99_scanf("%d", &v7) != 1
+      || (printf("Enter second number: "), (unsigned int)__isoc99_scanf("%d", &v6) != 1) )
+    {
+      puts("Unable to read number!");
+      return 1;
+    }
+    printf("%d + %d = %d\n", v7, v6, v7 + v6);
+  }
+  if ( v8 == 3 )
+  {
+    puts("Goodbye!");
+  }
+  else if ( v8 == 31337 )
+  {
+    puts("Wow such h4x0r!");
+    giveFlag();
+  }
+  else
+  {
+    printf("Unknown choice: %d\n", v8);
+  }
+  return 0;
+}
+```
+Dễ dàng nhận thấy rằng chương trình bắt nhập vào 1 số **v8**, nếu số này **v8 == 31337** thì sẽ được gọi hàm **giveFlag**
+
+Sau khi chạy chương trình và nhập số **31337** ta sẽ thu được flag như sau:
+FLAG
+```
+flag{much_reversing_very_ida_wow}
+```
+### conditional2
+Mở file bằng IDA ta sẽ có hàm main như sau:
+```c
+int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  int result; // eax
+
+  if ( argc == 2 )
+  {
+    if ( atoi(argv[1]) == -889262067 )
+    {
+      puts("Access granted.");
+      giveFlag();
+      result = 0;
+    }
+    else
+    {
+      puts("Access denied.");
+      result = 1;
+    }
+  }
+  else
+  {
+    printf("Usage: %s password\n", *argv);
+    result = 1;
+  }
+  return result;
+}
+```
+Dễ dàng thấy được chương trình nhận vào 1 số nguyên và số đó **-889262067** thì sẽ in ra flag. Ta chạy chương trình và truyền vào số đó sẽ thu được flag như sau:
+FLAG
+```
+flag{at_least_this_cafe_wont_leak_your_credit_card_numbers}
+```
+### Aunt Mildred
+Mở file bằng IDA, ta sẽ được hàm main như sau:
+
+```c
+int __cdecl main(int a1, char **a2)
+{
+  const char *v2; // edi
+  size_t v3; // eax
+  const char *v4; // esi
+  size_t v5; // eax
+
+  if ( a1 == 2 )
+  {
+    v2 = a2[1];
+    v3 = strlen(v2);
+    v4 = (const char *)malloc(2 * v3);
+    if ( v4 )
+    {
+      v5 = strlen(v2);
+      sub_80486B0(v2, v4, v5, 0);
+      if ( strlen(v4) == 64 && !strcmp(v4, "ZjByX3kwdXJfNWVjMG5kX2xlNTVvbl91bmJhc2U2NF80bGxfN2gzXzdoMW5nNQ==") )
+      {
+        puts("Correct password!");
+        return 0;
+      }
+      puts("Come on, even my aunt Mildred got this one!");
+    }
+    else
+    {
+      fwrite("malloc failed\n", 0xEu, 1u, stderr);
+    }
+  }
+  else
+  {
+    fprintf(stderr, "Usage: %s PASSWORD\n", *a2);
+  }
+  return -1;
+}
+```
+Thấy rằng sau khi **v2** được đi qua hàm **sub_80486B0** và compare với **ZjByX3kwdXJfNWVjMG5kX2xlNTVvbl91bmJhc2U2NF80bGxfN2gzXzdoMW5nNQ** thì sẽ đúng password.
+Mở hàm **sub_80486B0** ta sẽ có code như sau:
+```c
+int __cdecl sub_80486B0(int a1, int a2, unsigned int a3, int a4)
+{
+  int v5; // [esp+18h] [ebp-2Ch]
+  unsigned int v6; // [esp+1Ch] [ebp-28h]
+  unsigned int v7; // [esp+24h] [ebp-20h]
+  int v8; // [esp+28h] [ebp-1Ch]
+  unsigned int v9; // [esp+2Ch] [ebp-18h]
+
+  v5 = 0;
+  v7 = a3 / 3;
+  v6 = a3 % 3;
+  if ( a2 )
+  {
+    v9 = 0;
+    v8 = 0;
+    while ( v9 < 3 * v7 )
+    {
+      *(_BYTE *)(a2 + v8) = byte_8048F1C[*(unsigned __int8 *)(a1 + v9) >> 2];
+      *(_BYTE *)(v8 + a2 + 1) = byte_8048F1C[(16 * (*(_BYTE *)(a1 + v9) & 3)) | (*(unsigned __int8 *)(a1 + v9 + 1) >> 4)];
+      *(_BYTE *)(v8 + a2 + 2) = byte_8048F1C[(4 * (*(_BYTE *)(v9 + a1 + 1) & 0xF)) | (*(unsigned __int8 *)(v9 + a1 + 2) >> 6)];
+      *(_BYTE *)(v8 + a2 + 3) = byte_8048F1C[*(_BYTE *)(v9 + a1 + 2) & 0x3F];
+      if ( !((v8 - v5 + 4) % 0x4Cu) && a4 )
+      {
+        *(_BYTE *)(a2 + v8++ + 4) = 10;
+        ++v5;
+      }
+      v9 += 3;
+      v8 += 4;
+    }
+    if ( v6 == 1 )
+    {
+      *(_BYTE *)(a2 + v8) = byte_8048F1C[(int)*(unsigned __int8 *)(a1 + v9) >> 2];
+      *(_BYTE *)(a2 + v8 + 1) = byte_8048F1C[16 * (*(_BYTE *)(a1 + v9) & 3)];
+      *(_BYTE *)(a2 + v8 + 2) = 61;
+      *(_BYTE *)(a2 + v8 + 3) = 61;
+      v8 += 4;
+    }
+    else if ( v6 == 2 )
+    {
+      *(_BYTE *)(a2 + v8) = byte_8048F1C[(int)*(unsigned __int8 *)(a1 + v9) >> 2];
+      *(_BYTE *)(a2 + v8 + 1) = byte_8048F1C[(16 * (*(_BYTE *)(a1 + v9) & 3)) | ((int)*(unsigned __int8 *)(a1 + v9 + 1) >> 4)];
+      *(_BYTE *)(a2 + v8 + 2) = byte_8048F1C[4 * (*(_BYTE *)(a1 + v9 + 1) & 0xF)];
+      *(_BYTE *)(a2 + v8 + 3) = 61;
+      v8 += 4;
+    }
+  }
+  else
+  {
+    v8 = 4 * v7;
+    if ( v6 )
+      v8 += 4;
+    if ( a4 )
+      v8 += a3 / 0x39;
+  }
+  return v8;
+}
+```
+Hàm này rất giống với encrypt base64. Ta thử decrypt xâu **ZjByX3kwdXJfNWVjMG5kX2xlNTVvbl91bmJhc2U2NF80bGxfN2gzXzdoMW5nNQ**. Sau khi decrypt ta sẽ thu được: f0r_y0ur_5ec0nd_le55on_unbase64_4ll_7h3_7h1ng5 
+Thử chạy chương trình với xâu này thì đây chính là password.
+FLAG
+```
+flag{f0r_y0ur_5ec0nd_le55on_unbase64_4ll_7h3_7h1ng5}
+```
+
+### 64bit
+Mở file bằng IDA, ta có được hàm main như sau:
+
+```c
+int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  int v4; // [rsp+8h] [rbp-8h] BYREF
+  int v5; // [rsp+Ch] [rbp-4h]
+
+  v4 = 0;
+  puts("enter key:");
+  __isoc99_scanf("%d", &v4);
+  v5 = encrypt(v4);
+  if ( v5 == -559038737 )
+    puts("win :)");
+  else
+    puts("try again ");
+  return 0;
+}
+```
+
+Dễ dàng nhận thấy được **v5 = encrypt(v4)** và **v5 == -559038737** thì sẽ đúng password. Đi vào hàm encrypt ta có đoạn code như sau:
+
+```c
+__int64 __fastcall encrypt(int a1)
+{
+  return a1 ^ 1234u;
+}
+```
+Đây chỉ là 1 phép xor đơn giản như sau: **a1 ^ 1234 = -559038737**. Chính vì vậy ta có thể dễ dàng tìm được **a1 = -559038737 ^ 1234**.
+Ta sẽ tìm được **a1 = 3735927357**
+FLAG
+```
+flag{3735927357}
+```
+
+### Source Protection
+Bài này là được compile từ python. Ta sẽ sử dụng các tool để decompile file này ra code python. Sau khi decompile ta sẽ nhận được file python với code như sau:
+
+```python
+# uncompyle6 version 2.11.5
+# Python bytecode 2.7 (62211)
+# Decompiled from: Python 2.7.17 (default, Feb 27 2021, 15:10:58) 
+# [GCC 7.5.0]
+# Embedded file name: passwords.py
+
+
+def main():
+    passwords = {'Facebook': 'Zuck3rb3rg_is_dr34my','Twitter': 'SwiftOnSecurity15l1f3',
+       'School': 'I_Before_E_Except_After_C',
+       'SunshineCTF': 'sun{py1n574ll3r_15n7_50urc3_pr073c710n}'
+       }
+    print 'Welcome to my super secret password vault!'
+    p = raw_input("What's the magic phrase?: ")
+    if p != "I hate when I'm on a flight and I wake up with a water bottle next to me like oh great now I gotta be responsible for this water bottle - Kanye West":
+        print 'Wrong!'
+    else:
+        print 'Welcome back! Here are your passwords...'
+        for k, v in passwords.iteritems():
+            print 'Site: {}, Password: {}'.format(k, v)
+
+    raw_input('Press enter to exit...')
+
+
+if __name__ == '__main__':
+    main()
+```
+Dề dàng nhận ra flag chính là **sun{py1n574ll3r_15n7_50urc3_pr073c710n}**
+FLAG
+```
+sun{py1n574ll3r_15n7_50urc3_pr073c710n}
+```
+### Order Matters
+Mở file bằng IDA ta có hàm main như sau:
+```c
+int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  int result; // eax
+  __int64 v4[7]; // [rsp+0h] [rbp-70h]
+  int v5; // [rsp+38h] [rbp-38h]
+  char s[36]; // [rsp+40h] [rbp-30h] BYREF
+  int v7; // [rsp+64h] [rbp-Ch]
+  int v8; // [rsp+68h] [rbp-8h]
+  int i; // [rsp+6Ch] [rbp-4h]
+
+  v4[0] = 0LL;
+  v4[1] = 0LL;
+  v4[2] = 0LL;
+  v4[3] = 0LL;
+  v4[4] = 0LL;
+  v4[5] = 0LL;
+  v4[6] = 0LL;
+  v5 = 0;
+  i = 0;
+  v8 = 0;
+  v7 = 0;
+  printf("Enter password: ");
+  __isoc99_scanf("%s", s);
+  if ( strlen(s) != 30 )
+  {
+    puts("Wrong password length.");
+    exit(-1);
+  }
+  for ( i = 0; i <= 14; ++i )
+  {
+    *((_DWORD *)v4 + i) += 10 * (s[v8] - 48);
+    *((_DWORD *)v4 + i) += s[v8 + 1] - 48;
+    v8 += 2;
+  }
+  for ( i = 0; i <= 14; ++i )
+  {
+    switch ( *((_DWORD *)v4 + i) )
+    {
+      case 1:
+        v7 += p01();
+        break;
+      case 2:
+        v7 -= p02();
+        break;
+      case 3:
+        v7 *= (unsigned int)p03();
+        break;
+      case 4:
+        v7 += p04();
+        break;
+      case 5:
+        v7 -= p05();
+        break;
+      case 6:
+        v7 *= (unsigned int)p06();
+        break;
+      case 7:
+        v7 += p07();
+        break;
+      case 8:
+        v7 -= p08();
+        break;
+      case 9:
+        v7 *= (unsigned int)p09();
+        break;
+      case 0xA:
+        v7 += p10();
+        break;
+      case 0xB:
+        v7 -= p11();
+        break;
+      case 0xC:
+        v7 *= (unsigned int)p12();
+        break;
+      case 0xD:
+        v7 += p13();
+        break;
+      case 0xE:
+        v7 -= p14();
+        break;
+      case 0xF:
+        v7 *= (unsigned int)p15();
+        break;
+      default:
+        continue;
+    }
+  }
+  if ( abs32(v7) == 1865295194 )
+    result = puts("Access Granted");
+  else
+    result = puts("Access Denied.");
+  return result;
+}
+```
+Dễ dàng hiểu được chương trình sẽ nhận vào 1 string độ dài 30, sau đó cứ với 2 kí tự của string ta sẽ ra được 1 số nguyên. Ứng với mỗi số nguyên sẽ là 1 case trong switch. Ta thử xem hàm **p01()** sẽ làm gì. Mở code của hàm **p01()** ta có:
+
+```c
+__int64 p01()
+{
+  return strtol("58335249", 0LL, 16);
+}
+```
+Hàm này đưa ta 1 string và chuyển về hệ 16. Tương tự với các hàm khác, mỗi hàm sẽ cung cấp cho ta 1 số nguyên. Ta thấy, khi ghép các số hệ 16 này lại thì rất giống với xâu sau khi được encrypt base64. Xâu khi ta ghép lại là **X3RIX0lEZ1Nfc3VuX1QwQV9iNHJEfTNfeWExMTNfQjB5c3ttWV9UaFIxbg==**. Sau khi decrypt ta thu được xâu như sau: **__tH_IDgS_sun_T0A_b4rD}3_ya113_B0ys{mY_ThR1n**. Nó rất giống với flag nhưng đã bị thay đổi vị trí. Ta hoán vị xâu này thì nhận được flag như sau:
+FLAG
+```
+sun{mY_IDA_bR1ngS_a11_Th3_B0ys_t0_tH3_y4rD}
+```
 ### Moody Number
 
 Do file này được biên dịch từ java. Vì vậy ta sử dụng các tool để decompile file jar này. Sau khi decompile ta được 2 file sau:
@@ -262,7 +701,7 @@ Ta thấy header file đang bị corrupt. Mở header file lên kiểm tra:
 ![what-elf](../assets/img/what-elf.png)
 
 Thấy rằng các thông số đã bị thay đổi. Tìm hiểu về định dạng [file header](https://en.wikipedia.org/wiki/Executable_and_Linkable_Format)
-Nhận xét về định dạng thì có thể thấy được header đã bị chuyển từ file 64bit về 32bit. Sửa header về 32bit. (Sửa bit thứ 4 từ 01 thành 02)
+Nhận xét về định dạng thì có thể thấy được header đã bị chuyển từ file 64bit về 32bit. Sửa header về 32bit. (Sửa byte thứ 4 từ 01 thành 02)
 ![changHeader](../assets/img/changHeader.png)
 
 Sau đó ta mở file bằng IDA.
