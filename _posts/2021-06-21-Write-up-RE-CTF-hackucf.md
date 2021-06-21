@@ -450,7 +450,7 @@ sun{mY_IDA_bR1ngS_a11_Th3_B0ys_t0_tH3_y4rD}
 Do file này được biên dịch từ java. Vì vậy ta sử dụng các tool để decompile file jar này. Sau khi decompile ta được 2 file sau:
 
 NumberChecker.java
-~~~
+```java
 import java.math.BigInteger;
 import java.security.MessageDigest;
 
@@ -506,9 +506,9 @@ public class NumberChecker
         return n == 0 && n2 % 2 != 0 && (n2 ^ n3) == 0xF;
     }
 }
-~~~
+```
 MoodyNumbers.java
-~~~
+```java
 import java.security.Key;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
@@ -602,7 +602,7 @@ class MoodyNumbers
         }
     }
 }
-~~~
+```
 Đọc đoạn code checkNumber trên, ta có thể tính toán được các số như trong ảnh dưới đây:
 ![resMoody](../assets/img/MoodyNumber.PNG)
 Ta thấy thông báo là header file bị corrup
