@@ -3,7 +3,7 @@ layout: post
 title: ctf.hackucf-Write-up-Reversing
 ---
 ### Result
-![result](../assets/img/resultt.PNG)
+![result](../assets/img/result.png)
 Kết quả đạt được tổng điểm là 503 điểm phần RE.
 
 ### Conditional1
