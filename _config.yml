@@ -12,7 +12,8 @@ title: Anh-Minh Nguyen's Blog
 author: Anh-Minh Nguyen
 
 # --- List of links in the navigation bar --- #
-
+navbar-links:
+  My Resume: "resume"
 # --- Logo --- #
 
 # Image to show in the navigation bar - works best with a square image
