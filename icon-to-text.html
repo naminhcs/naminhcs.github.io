@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Encode Message</title>
+    <title>Decode Message</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="site.webmanifest">
@@ -51,11 +51,12 @@
             color: white !important;
         }
 
-        textarea{
+        textarea {
             background: #dbdada !important;
             color: black !important;
             text-transform: none !important;
         }
+
         p {
             color: white !important;
         }
@@ -92,12 +93,12 @@
                             <div class="m-0">
                                 <nav>
                                     <ul id="navigation" class="d-flex justify-content-between ml-100 mr-100">
-                                        <li><a href="#"
-                                                style="color: rgb(255, 255, 255); text-transform: none; font-size: large; font-weight: 800;">
+                                        <li><a href="/text-to-icon.html"
+                                                style="color: rgb(207, 204, 204); text-transform: none; font-size: large;">
                                                 Text to Icon</a></li>
                                         <div class="vl"></div>
-                                        <li><a href="/icon-to-text.html"
-                                                style="color: rgb(207, 204, 204); text-transform: none; font-size: large;">Icon
+                                        <li><a href="#"
+                                                style="color: rgb(255, 255, 255); text-transform: none; font-size: large; font-weight: 800;">Icon
                                                 to Text</a></li>
 
                                     </ul>
@@ -105,7 +106,7 @@
                             </div>
                             <hr>
                             <div class="login-heading">
-                                <span>Text to emoji icon</span>
+                                <span>Emoji Icon to Text</span>
 
                             </div>
 
@@ -117,9 +118,9 @@
                                 <div class="single-input-fields">
                                     <label> <b> Input </b></label>
                                     <div class="mt-10">
-                                        <textarea class="single-textarea" id="input" placeholder="Type your text"
-                                            onfocus="this.placeholder = ''" onblur="this.placeholder = 'Type your text'"
-                                            required></textarea>
+                                        <textarea class="single-textarea" id="inputIconToText"
+                                            placeholder="Type your text" onfocus="this.placeholder = ''"
+                                            onblur="this.placeholder = 'Type your text'" required></textarea>
                                     </div>
                                 </div>
                                 <hr>
@@ -137,7 +138,8 @@
                                 <div class="login-footer mt-50 mb-0">
                                     <p>&nbsp;</p>
                                     <button class="submit-btn3 genric-btn info radius"
-                                        style="font-weight:bolder; font-size:medium;" id="btnConvertTextToIcon">Convert</button>
+                                        style="font-weight:bolder; font-size:medium;"
+                                        id="btnConvertIconToText">Convert</button>
                                 </div>
                             </div>
                             <!-- form Footer -->
@@ -146,10 +148,14 @@
                         </div>
                     </div>
                 </div>
+
+
+
             </div>
         </div>
         <!-- login Area End -->
     </main>
+
     <footer>
         <!-- footer-bottom area -->
         <div class="footer-bottom-area">
@@ -176,7 +182,6 @@
         </div>
         <!-- Footer End-->
     </footer>
-
     <!-- Scroll Up -->
     <div id="back-top">
         <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
