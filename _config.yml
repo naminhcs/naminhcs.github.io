@@ -14,6 +14,7 @@ author: Anh-Minh Nguyen
 # --- List of links in the navigation bar --- #
 navbar-links:
   My Resume: "resume"
+  Convert Message: "text-to-icon"
 # --- Logo --- #
 
 # Image to show in the navigation bar - works best with a square image
