@@ -11,7 +11,7 @@ If you get any problem, let me know.
 
 ### First program
 
-You can create a folder that contains your code, when you open it by vscode, open terminal (control + shilf + `), you can see terminal in bottom.
+You can create a folder that contains your code then open it by vscode. After that open terminal (control + shilf + `), you can see terminal in bottom.
 
 Create new file (.py): **hello.py**. Then copy this to **hello.py**
 
@@ -20,6 +20,8 @@ print("Hello world")
 ```
 
 Press command + s to save file
+
+![sth-like-that](../assets/first-program.png)
 
 Run program:
 
