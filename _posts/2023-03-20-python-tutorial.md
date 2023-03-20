@@ -21,7 +21,7 @@ print("Hello world")
 
 Press command + s to save file
 
-![sth-like-that](../assets/first-program.png)
+![img1](../assets/img/first-program.png)
 
 Run program:
 
