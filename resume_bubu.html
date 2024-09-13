@@ -1,21 +1,28 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Make the body and html take the full height of the page */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        /* The iframe will take the full width and height of the screen */
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
 </head>
 <body>
-    <h1 style="text-align: center;">Embed PDF with PDF.js Viewer</h1>
 
-    <!-- Embed PDF.js viewer -->
-    <iframe src="pdf.js/web/viewer.html?file=bubu.pdf" 
-            width="100%" height="100vh" style="border: none;">
-        <!-- Fallback message for browsers that do not support iframes -->
-        This browser does not support displaying PDFs. Please download the PDF to view it:
-        <a href="your-pdf-file.pdf">Download PDF</a>.
-    </iframe>
+    <!-- Full-screen iframe to show the PDF file -->
+    <iframe src="bubu.pdf"></iframe>
 
 </body>
 </html>
-
-
